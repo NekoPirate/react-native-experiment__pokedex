@@ -21,6 +21,7 @@ const Led = ({
     right = null,
     border = null,
     pulse = null,
+    shiny = null,
 
 }) => {
 
@@ -138,19 +139,38 @@ const Led = ({
                 { width: size, height: size, position: 'absolute' },
                 { opacity: .4 },
             ]}>
+                {
+                    shiny
+                        ? <>
+                            <View style={[
+                                { width: size / 2, height: size / 2, borderRadius: size, backgroundColor: '#ffffff' },
+                                { position: 'absolute', left: size / 6, top: size / 8.5 },
+                            ]} />
+                            <View style={[
+                                { width: size / 3, height: size / 3, borderRadius: size, backgroundColor: '#ffffffbb' },
+                                { position: 'absolute', left: size / 3.3, top: size / 3.3 },
+                            ]} />
+                            <View style={[
+                                { width: size / 1.2, height: size / 1.2, borderRadius: size, backgroundColor: '#ffffff99' },
+                                { position: 'absolute', left: size / 20, top: size / 20 },
+                            ]} />
+                        </>
+                        : <>
+                            <View style={[
+                                { width: size / 1.5, height: size / 1.5, borderRadius: size, backgroundColor: '#ffffff' },
+                                { position: 'absolute', left: size / 6, top: size / 8 },
+                            ]} />
+                            {/* <View style={[
+                                { width: size / 3, height: size / 3, borderRadius: size, backgroundColor: '#ffffffbb' },
+                                { position: 'absolute', left: size / 3.3, top: size / 3.3 },
+                            ]} />
+                            <View style={[
+                                { width: size / 1.2, height: size / 1.2, borderRadius: size, backgroundColor: '#ffffff99' },
+                                { position: 'absolute', left: size / 20, top: size / 20 },
+                            ]} /> */}
+                        </>
+                }
 
-                <View style={[
-                    { width: size / 2, height: size / 2, borderRadius: size, backgroundColor: '#ffffff' },
-                    { position: 'absolute', left: size / 6, top: size / 8.5 },
-                ]} />
-                <View style={[
-                    { width: size / 3, height: size / 3, borderRadius: size, backgroundColor: '#ffffffbb' },
-                    { position: 'absolute', left: size / 3.3, top: size / 3.3 },
-                ]} />
-                <View style={[
-                    { width: size / 1.2, height: size / 1.2, borderRadius: size, backgroundColor: '#ffffff99' },
-                    { position: 'absolute', left: size / 20, top: size / 20 },
-                ]} />
 
             </Animated.View>
 

@@ -55,7 +55,7 @@ export default function RoundBTN({
                         {
                             translateY: BTN_HEIGHT
                         },
-                        { scale: 1.1 }
+                        { scale: 1.2 }
                     ]
                 }
             ]} />
@@ -91,12 +91,12 @@ export default function RoundBTN({
                         ]
                     }
                 ]} >
-                <View style={[
+                {/* <View style={[
                     { position: 'absolute', justifyContent: 'center', alignItems: 'center' },
                     { width: '90%', height: '90%' },
                     { borderRadius: 30, borderWidth: 3, borderColor: '#54353922' },
                     { backgroundColor: '#54353955' },
-                ]} ></View>
+                ]} ></View> */}
             </AnimatedPressable>
         </View>
     )

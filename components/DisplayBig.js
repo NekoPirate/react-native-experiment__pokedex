@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { Dimensions, Animated, Easing, StyleSheet, Text, View, Pressable, Image, ScrollView } from 'react-native';
 
 import Led from './Led'
-const COLOR_SHADOW = '#00000066'
-const COLOR_GREEN = '#4fa95f'
+import RoundBTN from './RoundBTN'
 
-const COLOR_RED = '#dc1830'
-const COLOR_RED_LIGHT = '#f6a9b2'
+const COLOR_SHADOW = '#543539Df'
+const COLOR_OUTLINE = '#54353a'
+
+
 const SCREEN_WIDTH = Dimensions.get('screen').width
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
@@ -36,34 +37,33 @@ const DisplayBig = ({ children }) => {
     useEffect(() => oldScreenAnimation(), [])
     return (
         <View style={[
-            { width: SCREEN_WIDTH * .75, height: (SCREEN_WIDTH * .75) },
-            { position: 'absolute', left: SCREEN_WIDTH * .1, top: SCREEN_WIDTH * .53 },
+            { width: SCREEN_WIDTH - (GAP * 3), height: SCREEN_WIDTH - (GAP * 3) },
             { justifyContent: 'center', alignItems: 'center' }
         ]}>
-            <Image source={require('../assets/img/display_frame.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+
+            <Image source={require('../assets/img/frame.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
 
             <View style={{ width: 50, position: 'absolute', top: 19, flexDirection: 'row', justifyContent: 'space-between' }} >
 
-                <Led size={12} colorA={COLOR_RED} colorB={COLOR_RED_LIGHT} speed={160} />
-                <Led size={12} colorA={COLOR_RED} colorB={COLOR_RED_LIGHT} speed={160} />
+                <Led size={6} colorA={'#aaa'} colorB={'#fff'} speed={160} pulse={true} shiny={true} />
+                <Led size={6} colorA={'#aaa'} colorB={'#fff'} speed={160} pulse={true} shiny={true} />
+                <Led size={6} colorA={'#aaa'} colorB={'#fff'} speed={160} pulse={true} shiny={true} />
+                <Led size={6} colorA={'#aaa'} colorB={'#fff'} speed={160} pulse={true} shiny={true} />
 
             </View>
 
-
-            {/* <Led
-                size={25}
-                color={'red'}
-                pos={'absolute'}
-                bottom={14}
-                left={50}
-            /> */}
 
             {/* SCREEN */}
             <View View style={
                 [
                     { position: 'absolute', width: '68%', height: '68%' },
+                    { justifyContent: 'center', alignItems: 'center' },
                     { backgroundColor: '#333', overflow: 'hidden' },
-                    { borderRadius: 15, borderColor: '#54353a', borderWidth: 4 },
+                    { borderRadius: 15, paddingLeft: 5 },
+                    { borderLeftWidth: 4, borderTopWidth: 4 },
+                    { borderRightWidth: 3, borderBottomWidth: 3 },
+
+                    { borderColor: COLOR_OUTLINE }
                 ]} >
                 {children}
 

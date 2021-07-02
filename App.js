@@ -32,7 +32,8 @@ const COLOR_GREEN = '#4fa95f'
 const COLOR_GREEN_LIGHT = '#c1e2c7'
 const COLOR_BLUE = '#11709e'
 const COLOR_BLUE_LIGHT = '#d2d2d2'
-
+const COLOR_SHADOW = '#543539Df'
+const COLOR_OUTLINE = '#54353a'
 const SCREEN_WIDTH = Dimensions.get('screen').width
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
@@ -141,128 +142,174 @@ export default function App() {
 
   return (
     <View style={[
-      { width: SCREEN_WIDTH, height: SCREEN_HEIGHT },
-      { backgroundColor: COLOR_RED },
-      { alignItems: 'center', justifyContent: 'center' }
+      { flex: 1 },
+      { alignItems: 'center', justifyContent: 'flex-start' },
+      { backgroundColor: COLOR_OUTLINE },
 
     ]}>
-      <View style={[
-        { width: SCREEN_WIDTH, height: SCREEN_HEIGHT },
-        { position: 'absolute' },
-      ]}>
-        <Image source={require('./assets/img/pokedex-body.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+      <ScrollView
+        horizontal={true}
+        pagingEnabled={true}
 
-      </View>
+      >
 
+        {/* LEFT------------------------------------------- */}
+        <View style={[
+          { width: SCREEN_WIDTH, flex: 1, },
+          { alignItems: 'flex-start', justifyContent: 'flex-start' },
+        ]}>
+          {/* BACKGROUND IMAGE------------------------------------------- */}
+          <View style={[
+            { width: SCREEN_WIDTH, height: '100%', position: 'absolute' },
+            { justifyContent: 'flex-start', alignItems: 'center' },
+            // { backgroundColor: '#ff0' },
+          ]}>
 
-
-      <View style={[
-        { position: 'absolute', top: GAP, left: GAP },
-      ]}>
-        <Led
-          size={75}
-          colorA={COLOR_BLUE}
-          colorB={COLOR_BLUE_LIGHT}
-          border={true}
-          pulse={true}
-          speed={500}
-          pos={'absolute'}
-          top={GAP}
-          left={GAP} />
-      </View>
-
-
-
-      {/* 
-      <View style={[
-        { width: 100, height: 30 },
-        { position: 'absolute', top: GAP, right: GAP },
-        { flexDirection: 'row', justifyContent: 'space-between' }
-      ]}>
-        <Led size={25} colorA={COLOR_RED} colorB={COLOR_RED_LIGHT} speed={10000} />
-        <Led size={25} colorA={COLOR_GOLD} colorB={COLOR_GOLD_LIGHT} speed={10000} />
-        <Led size={25} colorA={COLOR_GREEN} colorB={COLOR_GREEN_LIGHT} speed={10000} />
-
-      </View> */}
-
-
-      {/* DISPLAY BIG-------------------------------------------------- */}
-      <DisplayBig >
-        {/* <Image source={require('./assets/img/pika_big.png')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'center'} /> */}
-      </DisplayBig>
-
-
-
-      {/* BOTTOM----------------------------------------------------- */}
-      <View style={[
-        { width: SCREEN_WIDTH, paddingLeft: GAP * 2, paddingRight: GAP * 3 },
-        { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' },
-        { position: 'absolute', bottom: GAP * 2.4 },
-        // { backgroundColor: '#ff0' },
-      ]}>
-
-
-        <View>
-
-          {/* PULSANTI_PIATTI-------------------------------------------- */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingVertical: GAP }}>
-            <FlatBTN color={COLOR_RED} onPress={() => alert('RED BUTTON')} />
-            <FlatBTN color={COLOR_BLUE} onPress={() => alert('BLUE BUTTON')} />
+            <Image source={require('./assets/img/PDX.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
           </View>
 
-          {/* DISPLAY_VERDE---------------------------------------------- */}
-          <DisplayGreen>
-            {/* <Image source={require('./assets/img/pika_small.png')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'cover'} /> */}
-          </DisplayGreen>
-
-        </View>
 
 
-        <View style={[
-          { alignItems: 'center', paddingBottom: 7, },
-        ]}>
-
-          {/* PULSANTE_ROTONDO------------------------------------------- */}
-          <RoundBTN size={50} onPress={() => alert('ROUND')} />
-
-          {/* CROCE------------------------------------------------------ */}
-          <CrossPad
-            onPressLeft={() => null}
-            onPressTop={() => null}
-            onPressRight={() => null}
-            onPressBottom={() => null} />
-
-        </View>
-
-      </View>
-
-
-
-
-
-
-
-      {/* <Animated.View style={[
-        { width: SCREEN_WIDTH * 1.2, height: SCREEN_HEIGHT - (GAP * 2.5) },
-        { position: 'absolute', top: GAP * 2.5 },
-        { alignItems: 'center', justifyContent: 'center' },
-        getTransform(),
-
-      ]}>
-        <Image source={require('./assets/img/front.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
-
-
-        <Pressable
-          // onLongPress={() => handle_press()}
-          onPressIn={() => handle_press()}
-          onPressOut={() => handle_OpenBtn()} style={[
-            { width: 40, height: 100 },
-            { position: 'absolute', left: GAP, top: (SCREEN_HEIGHT / 2) - 50 },
+          {/* BIG BLUE LED------------------------------------------- */}
+          <View style={[
+            { position: 'absolute', top: GAP, left: GAP },
           ]}>
-          <Image source={require('./assets/img/btn-open.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
 
-        </Pressable>
-      </Animated.View> */}
+            <Led
+              size={65}
+              colorA={COLOR_BLUE}
+              colorB={COLOR_BLUE_LIGHT}
+              border={true}
+              pulse={true}
+              shiny={true}
+              speed={500}
+              pos={'absolute'}
+              top={GAP}
+              left={GAP} />
+
+          </View>
+
+
+          {/* SMALL LEDS------------------------------------------- */}
+          <View style={[
+            { width: 80, height: 30 },
+            { position: 'absolute', top: GAP * 1.5, left: (SCREEN_WIDTH / 2) - 40 },
+            { flexDirection: 'row', justifyContent: 'space-between' },
+          ]}>
+
+            <Led size={21} colorA={COLOR_RED} colorB={COLOR_RED_LIGHT} speed={100} />
+            <Led size={21} colorA={COLOR_GOLD} colorB={COLOR_GOLD_LIGHT} speed={100} />
+            <Led size={21} colorA={COLOR_GREEN} colorB={COLOR_GREEN_LIGHT} speed={100} />
+
+          </View>
+
+          {/* CONTENT:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
+          <View style={[
+            { width: SCREEN_WIDTH * .9, flex: 1, },
+            // { position: 'absolute', top: SCREEN_WIDTH * .43, bottom: GAP * 1.3, left: SCREEN_WIDTH * .02 },
+            { marginTop: SCREEN_WIDTH * .43, marginBottom: GAP * 1.3, marginLeft: SCREEN_WIDTH * .03 },
+            // { backgroundColor: '#ff0' },
+          ]}>
+            <View style={{ height: GAP }} />
+
+
+            {/* TOP-------------------------------------------------------- */}
+            <View style={[
+              { width: '100%' },
+              // { backgroundColor: '#555' },
+              { justifyContent: 'center', alignItems: 'center' },
+            ]}>
+              {/* DISPLAY BIG-------------------------------------------------- */}
+              <DisplayBig >
+                <Image source={require('./assets/img/pika_big.png')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'contain'} />
+              </DisplayBig>
+            </View>
+
+
+            <View style={{ height: GAP }} />
+            {/* BOTTOM----------------------------------------------------- */}
+            <View style={[
+              { width: '100%', flex: 1 },
+              { flexDirection: 'row' },
+              // { backgroundColor: '#555' }
+
+
+            ]}>
+
+              <View style={[
+                { width: '50%', flex: 1 },
+                { justifyContent: 'flex-start', alignItems: 'center' },
+                // { backgroundColor: '#f0f' }
+              ]}>
+
+                {/* PULSANTI_PIATTI-------------------------------------------- */}
+                <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', paddingBottom: GAP }}>
+                  <FlatBTN color={COLOR_RED} isActive={true} onPress={() => alert('RED BUTTON')} />
+                  <FlatBTN color={COLOR_BLUE} isActive={true} onPress={() => alert('BLUE BUTTON')} />
+                </View>
+
+                {/* DISPLAY_VERDE---------------------------------------------- */}
+                <DisplayGreen>
+                  <Image source={require('./assets/img/pika_small.png')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'cover'} />
+                </DisplayGreen>
+
+              </View>
+              <View style={[
+                { width: '50%', flex: 1 },
+                { justifyContent: 'center', alignItems: 'center' },
+                // { backgroundColor: '#0ff' }
+              ]}>
+
+                {/* <RoundBTN size={40} onPress={() => alert('ROUND')} /> */}
+
+                {/* CROCE------------------------------------------------------ */}
+                <CrossPad
+                  onPressLeft={() => null}
+                  onPressTop={() => null}
+                  onPressRight={() => null}
+                  onPressBottom={() => null} />
+
+              </View>
+            </View>
+
+          </View>
+        </View>
+
+        {/* RIGHT------------------------------------------- */}
+        <View style={[
+          { width: SCREEN_WIDTH, flex: 1 },
+          { alignItems: 'center', justifyContent: 'flex-start' },
+        ]}>
+          <View style={{ height: GAP }} />
+
+          {/* BACKGROUND IMAGE------------------------------------------- */}
+          <View style={[
+            { width: SCREEN_WIDTH, height: SCREEN_HEIGHT, position: 'absolute' },
+            { justifyContent: 'center', alignItems: 'center' },
+            // { backgroundColor: '#ff0' },
+          ]}>
+
+            <Image source={require('./assets/img/PDX2.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+          </View>
+        </View>
+
+      </ScrollView>
+
+
+
+      {/* COVER----------------------------------------------------- */}
+      {/* <View style={[
+        { width: SCREEN_WIDTH, height: SCREEN_HEIGHT },
+        {
+          justifyContent: 'flex-start', alignItems: 'center'
+        },
+        // { backgroundColor: '#ff0' },
+        { position: 'absolute' }
+      ]}>
+
+        <Image source={require('./assets/img/PDX-cover.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+      </View> */}
+
 
       <StatusBar style="auto" hidden={true} />
     </View >

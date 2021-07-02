@@ -137,6 +137,7 @@ export default function CrossPad({
         <View style={[
             { width: 120, height: 120 },
             { justifyContent: 'center', alignItems: 'center' },
+            // { backgroundColor: '#fff' }
         ]}>
             {/* SHADOW */}
             <Animated.View style={[

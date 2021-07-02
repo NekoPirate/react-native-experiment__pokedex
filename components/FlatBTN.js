@@ -12,6 +12,7 @@ const SPEED = 100
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function FlatBTN({
+    isActive,
     color,
     onPress,
 }) {
@@ -84,7 +85,7 @@ export default function FlatBTN({
                 onPressIn={() => pressAnimation()}
                 onPressOut={() => handle_PRESS()}
                 style={[
-                    { width: 50, height: 20 },
+                    { width: 50, height: 20, overflow: 'hidden' },
                     { backgroundColor: color },
                     { borderTopLeftRadius: 10, borderTopRightRadius: 10 },
                     { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 },
@@ -96,7 +97,14 @@ export default function FlatBTN({
                             }
                         ]
                     }
-                ]} />
+                ]} >
+                {
+                    isActive
+                        ? <View style={{ width: '100%', height: '50%', backgroundColor: '#fff', opacity: .3 }}></View>
+                        : <></>
+                }
+
+            </AnimatedPressable>
 
         </View>
     )

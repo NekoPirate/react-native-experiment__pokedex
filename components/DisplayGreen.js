@@ -20,27 +20,30 @@ const DisplayGreen = ({ children }) => {
     }
     useEffect(() => oldScreenAnimation(), [])
     return (
-        <View>
+        <View style={{ width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View style={[
-                { width: 125, height: 160, position: 'absolute' },
-                { backgroundColor: COLOR_SHADOW, overflow: 'hidden' },
-                { borderRadius: 20 },
-                { opacity: .5 },
+                { width: '70%', flex: 1, position: 'absolute' },
+                { backgroundColor: COLOR_SHADOW },
+                { borderRadius: 10 },
+                // { opacity: .5 },
 
 
                 {
                     transform: [
                         {
-                            scale: 1.05
+                            scale: 2
                         }
                     ]
                 }
 
             ]} />
             <View style={[
-                { width: 125, height: 160 },
+                { width: '95%', flex: 1 },
                 { backgroundColor: '#4fa95f', overflow: 'hidden' },
-                { borderRadius: 20, borderWidth: 4 },
+                { borderRadius: 10, },
+                { borderLeftWidth: 6, borderTopWidth: 6 },
+                { borderRightWidth: 3, borderBottomWidth: 3 },
+
                 { borderColor: COLOR_OUTLINE }
 
                 // { borderRadius: 20, borderColor: '#54353a', borderWidth: 4 },
@@ -64,7 +67,7 @@ const DisplayGreen = ({ children }) => {
                     ]}
                 />
 
-                <View style={{ position: 'absolute', left: -5, top: -5, width: '150%', height: '150%', borderColor: '#00000066', borderWidth: 10, borderRadius: 20 }} pointerEvents='none' />
+                <View style={{ position: 'absolute', left: -5, top: -5, width: '150%', height: '150%', borderColor: '#00000066', borderWidth: 10, borderRadius: 15 }} pointerEvents='none' />
             </View>
         </View>
 
