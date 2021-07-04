@@ -15,6 +15,7 @@ const colore = '#2d2b2c'
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function RoundBTN({
+    children,
     size,
     onPress,
 }) {
@@ -91,12 +92,7 @@ export default function RoundBTN({
                         ]
                     }
                 ]} >
-                {/* <View style={[
-                    { position: 'absolute', justifyContent: 'center', alignItems: 'center' },
-                    { width: '90%', height: '90%' },
-                    { borderRadius: 30, borderWidth: 3, borderColor: '#54353922' },
-                    { backgroundColor: '#54353955' },
-                ]} ></View> */}
+                {children}
             </AnimatedPressable>
         </View>
     )

@@ -38,7 +38,7 @@ const DisplayGreen = ({ children }) => {
 
             ]} />
             <View style={[
-                { width: '95%', flex: 1 },
+                { width: '85%', flex: 1 },
                 { backgroundColor: '#4fa95f', overflow: 'hidden' },
                 { borderRadius: 10, },
                 { borderLeftWidth: 6, borderTopWidth: 6 },
