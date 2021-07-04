@@ -32,28 +32,28 @@ const SPEED = 750
 
 
 
-const ScreenLeft = () => {
+const ScreenLeft = ({ animationValue }) => {
 
     // const animationValue = useRef(new Animated.Value(0)).current
 
-    // const translateShadow = animationValue.interpolate({
-    //     inputRange: [0, 0.2, 1],
-    //     outputRange: [0, 0, SCREEN_WIDTH * 1.2]
-    // })
+    const translateShadow = animationValue.interpolate({
+        inputRange: [0, 0.2, 1],
+        outputRange: [0, 0, SCREEN_WIDTH * 1.2]
+    })
 
-    // const shadowFadeInOut = animationValue.interpolate({
-    //     inputRange: [0, 1],
-    //     outputRange: [.9, 0]
-    // })
+    const shadowFadeInOut = animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [.9, 0]
+    })
 
 
-    // const getShadowAnimatedStyle = () => {
-    //     let transform = {
-    //         opacity: shadowFadeInOut,
-    //         transform: [{ translateX: translateShadow }]
-    //     }
-    //     return transform
-    // }
+    const getShadowAnimatedStyle = () => {
+        let transform = {
+            opacity: shadowFadeInOut,
+            transform: [{ translateX: translateShadow }]
+        }
+        return transform
+    }
 
 
     console.log('RENDER LEFT')
@@ -145,14 +145,14 @@ const ScreenLeft = () => {
             COVER SHADOW:
             
             this shadow covers all CONTENT while the COVER animation is active*/}
-            {/* <Animated.View pointerEvents='none'
+            <Animated.View pointerEvents='none'
                 style={[
                     styles.FULSCREEN,
                     { position: 'absolute' },
                     { backgroundColor: COLOR_SHADOW },
                     getShadowAnimatedStyle()
 
-                ]} /> */}
+                ]} />
 
 
 

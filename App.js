@@ -112,7 +112,7 @@ export default function App() {
         pagingEnabled={true}
         scrollEnabled={isOpen ? true : false}
       >
-        <ScreenLeft />
+        <ScreenLeft animationValue={animationValue} />
 
         <ScreenRight />
 
