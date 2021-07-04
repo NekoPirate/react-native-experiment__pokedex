@@ -27,22 +27,28 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
 const HINGE_WIDTH = GAP
 const ScreenRight = () => {
+
+    console.log('RENDER RIGHT')
     return (
 
         <Page width={SCREEN_WIDTH - GAP} >
 
-            {/* BACKGROUND IMAGE------------------------------------------- */}
-            <View style={[
-                { width: SCREEN_WIDTH, height: '100%', position: 'absolute' },
-                { justifyContent: 'center', alignItems: 'center' },
-                // { backgroundColor: '#ff0' },
-            ]}>
+            {/*  PDX2  */}
+            <View pointerEvents='none'
+                style={[
+                    { width: SCREEN_WIDTH, height: '100%', position: 'absolute', top: 0, botto: 0, left: 0, right: 0 },
+                    { justifyContent: 'space-between', alignItems: 'center' },
+                    // { backgroundColor: '#333' }
+                ]}>
 
-                <Image source={require('../assets/img/PDX2.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX2_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX2_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX2_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
+
             </View>
         </Page>
 
     )
 }
 
-export default ScreenRight
+export default React.memo(ScreenRight)

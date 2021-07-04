@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { StyleSheet, Dimensions, Animated, View, Pressable, Image } from 'react-native';
 
 const COLOR_SHADOW = '#543539Df'
@@ -14,11 +14,12 @@ const GAP = SCREEN_WIDTH * .05
 const colore = '#2d2b2c'
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function RoundBTN({
+
+const RoundBTN = ({
     children,
     size,
     onPress,
-}) {
+}) => {
 
     const translate = useRef(new Animated.Value(0)).current
 
@@ -38,11 +39,13 @@ export default function RoundBTN({
         }).start()
     }
 
-    const handle_PRESS = () => {
+    const handle_PRESS = useCallback(() => {
         onPress()
         defaultAnimation()
-    }
+    }, [onPress])
 
+
+    console.log('RENDER ROUND_BTN')
 
     return (
         <View>
@@ -98,7 +101,7 @@ export default function RoundBTN({
     )
 
 }
-
+export default React.memo(RoundBTN)
 const styles = StyleSheet.create({
     pressableHorizontal: {
         width: 30, height: 50,

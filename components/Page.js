@@ -3,6 +3,8 @@ import { Dimensions, View } from 'react-native';
 const SCREEN_WIDTH = Dimensions.get('screen').width
 
 const Page = ({ children, width }) => {
+    console.log('RENDER PAGE')
+
     return (
         <View style={[
             { width: width, flex: 1, },
@@ -13,4 +15,4 @@ const Page = ({ children, width }) => {
         </View>
     )
 }
-export default Page
+export default React.memo(Page)

@@ -19,6 +19,9 @@ const DisplayGreen = ({ children }) => {
             -1).start()
     }
     useEffect(() => oldScreenAnimation(), [])
+
+    console.log('RENDER DISPLAY_GREEN')
+
     return (
         <View style={{ width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View style={[
@@ -73,4 +76,4 @@ const DisplayGreen = ({ children }) => {
 
     )
 }
-export default DisplayGreen
+export default React.memo(DisplayGreen)

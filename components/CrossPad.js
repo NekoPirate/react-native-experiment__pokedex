@@ -8,12 +8,12 @@ const ANGLE = 3
 const PERSPECTIVE = 90
 const SPEED = 100
 
-export default function CrossPad({
+const CrossPad = ({
     onPressLeft,
     onPressRight,
     onPressTop,
     onPressBottom,
-}) {
+}) => {
 
     const rotate_X_value = useRef(new Animated.Value(0.5)).current
     const rotate_Y_value = useRef(new Animated.Value(0.5)).current
@@ -132,6 +132,7 @@ export default function CrossPad({
         defaultAnimation()
     }
 
+    console.log('RENDER CROSS_PAD')
 
     return (
         <View style={[
@@ -331,6 +332,8 @@ export default function CrossPad({
     )
 
 }
+export default React.memo(CrossPad)
+
 
 const styles = StyleSheet.create({
     pressableHorizontal: {

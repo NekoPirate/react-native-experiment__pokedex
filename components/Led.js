@@ -49,6 +49,7 @@ const Led = ({
             pulseAnimation()
         }
     }, [])
+    console.log('RENDER LED')
 
     return (<>
         <View style={{
@@ -178,4 +179,4 @@ const Led = ({
     </>)
 }
 
-export default Led
+export default React.memo(Led)

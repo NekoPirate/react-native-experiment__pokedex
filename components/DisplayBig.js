@@ -35,6 +35,9 @@ const DisplayBig = ({ children }) => {
             -1).start()
     }
     useEffect(() => oldScreenAnimation(), [])
+
+    console.log('RENDER DISPLAY_BIG')
+
     return (
         <View style={[
             { width: SCREEN_WIDTH - (GAP * 3), height: SCREEN_WIDTH - (GAP * 3) },
@@ -84,4 +87,4 @@ const DisplayBig = ({ children }) => {
 
     )
 }
-export default DisplayBig
+export default React.memo(DisplayBig)

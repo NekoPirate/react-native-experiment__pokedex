@@ -29,76 +29,34 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
 
 const SPEED = 750
-const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
-
-    const animationValue = useRef(new Animated.Value(0)).current
-
-    const translateShadow = animationValue.interpolate({
-        inputRange: [0, 0.2, 1],
-        outputRange: [0, 0, SCREEN_WIDTH * 1.2]
-    })
-
-    const shadowFadeInOut = animationValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [.9, 0]
-    })
-
-    const openCover = animationValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', `180deg`]
-    })
-
-    const fadeCover = animationValue.interpolate({
-        inputRange: [0, 0.9, 1],
-        outputRange: [1, 1, 0]
-    })
-
-    const getCoverAnimatedStyle = () => {
-        let transform = {
-            opacity: fadeCover,
-        }
-        return transform;
-    }
-
-    const getCoverSpecialAnimatedStyle = () => {
-        let transform = {
-            transform: [{ rotateY: openCover }, { perspective: 15000 }]
-        }
-        return withAnchorPoint(transform, { x: 1, y: 1 }, { width: SCREEN_WIDTH, height: SCREEN_HEIGHT });
-    }
-
-    const getShadowAnimatedStyle = () => {
-        let transform = {
-            opacity: shadowFadeInOut,
-            transform: [{ translateX: translateShadow }]
-        }
-        return transform
-    }
-
-    const openAnimation = () => {
-        Animated.timing(animationValue, {
-            toValue: 1,
-            duration: SPEED,
-            useNativeDriver: true,
-        }).start()
-    }
-
-    const closeAnimation = () => {
-        Animated.timing(animationValue, {
-            toValue: 0,
-            duration: SPEED,
-            useNativeDriver: true,
-        }).start()
-    }
-    const handle_toggle_open = () => {
-        isOpen
-            ? closeAnimation()
-            : openAnimation()
-
-        onPressToggleOpen()
-    }
 
 
+
+const ScreenLeft = () => {
+
+    // const animationValue = useRef(new Animated.Value(0)).current
+
+    // const translateShadow = animationValue.interpolate({
+    //     inputRange: [0, 0.2, 1],
+    //     outputRange: [0, 0, SCREEN_WIDTH * 1.2]
+    // })
+
+    // const shadowFadeInOut = animationValue.interpolate({
+    //     inputRange: [0, 1],
+    //     outputRange: [.9, 0]
+    // })
+
+
+    // const getShadowAnimatedStyle = () => {
+    //     let transform = {
+    //         opacity: shadowFadeInOut,
+    //         transform: [{ translateX: translateShadow }]
+    //     }
+    //     return transform
+    // }
+
+
+    console.log('RENDER LEFT')
     return (
         <Page width={SCREEN_WIDTH}>
 
@@ -109,13 +67,15 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
 
 
             {/* BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND:::: */}
+
+            {/*  PDX0  */}
             <View style={[
                 { width: SCREEN_WIDTH, height: '100%', position: 'absolute' },
                 { justifyContent: 'flex-start', alignItems: 'center' },
-                // { backgroundColor: '#ff0' },
+                // { backgroundColor: '#333' }
             ]}>
 
-                <Image source={require('../assets/img/PDX-BG.png')} style={styles.IMG} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX0.png')} style={styles.IMG} resizeMode={'stretch'} />
             </View>
 
 
@@ -129,7 +89,7 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
             {/* CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT:::: */}
             <View style={[
                 { width: SCREEN_WIDTH * .9, flex: 1, },
-                { marginTop: SCREEN_WIDTH * .43, marginBottom: GAP * 1.3, marginLeft: SCREEN_WIDTH * .03 },
+                { marginTop: SCREEN_WIDTH * .42, marginBottom: GAP * 1.3, marginLeft: GAP / 2 },
                 // { backgroundColor: '#ff0' },
             ]}>
 
@@ -185,14 +145,14 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
             COVER SHADOW:
             
             this shadow covers all CONTENT while the COVER animation is active*/}
-            <Animated.View pointerEvents='none'
+            {/* <Animated.View pointerEvents='none'
                 style={[
                     styles.FULSCREEN,
                     { position: 'absolute' },
                     { backgroundColor: COLOR_SHADOW },
                     getShadowAnimatedStyle()
 
-                ]} />
+                ]} /> */}
 
 
 
@@ -203,14 +163,18 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
 
             {/* FOREGROUND::::FOREGROUND::::FOREGROUND::::FOREGROUND::::FOREGROUND::::FOREGROUND::::*/}
 
-            {/* HEADER/HINGE IMAGE------------------------------------------- */}
+            {/*  PDX1   */}
             <View pointerEvents='none'
                 style={[
-                    { width: SCREEN_WIDTH, height: '100%', position: 'absolute' },
-                    { justifyContent: 'flex-start', alignItems: 'center' },
+                    { width: SCREEN_WIDTH, height: '100%', position: 'absolute', top: 0, botto: 0, left: 0, right: 0 },
+                    { justifyContent: 'space-between', alignItems: 'center' },
+                    // { backgroundColor: '#333' }
                 ]}>
 
-                <Image source={require('../assets/img/PDX-header-hinge.png')} style={styles.IMG} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX1_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX1_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
+                <Image source={require('../assets/img/PDX1_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
+
             </View>
 
 
@@ -246,43 +210,9 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
             </View>
 
 
-            {/* BTN OPEN------------------------------------------- */}
-            <View style={[styles.CENTER, { position: 'absolute', top: GAP - 5, right: GAP * 1.5 }]} >
-
-                <RoundBTN onPress={() => handle_toggle_open()} size={50} >
-                    <View style={[
-                        { width: 30, height: 30, position: 'absolute', top: 7 },
-                        { borderRadius: 50, borderWidth: 4, borderColor: COLOR_OUTLINE }
-                    ]} />
-                    <View style={[
-                        { width: 12, height: 20, position: 'absolute', top: 4 },
-                        { borderLeftWidth: 4, borderRightWidth: 4, borderRadius: 20, borderColor: 'orange', backgroundColor: COLOR_OUTLINE }
-                    ]} />
-                </RoundBTN>
-
-            </View>
 
 
-            {/* COVER----------------------------------------------------- */}
-            <Animated.View
-                pointerEvents='none'
-                style={[
-                    styles.FULSCREEN,
-                    { justifyContent: 'flex-start', alignItems: 'center' },
-                    { position: 'absolute' },
 
-                ]}>
-                <Animated.View style={[
-                    styles.FULSCREEN,
-                    { justifyContent: 'flex-start', alignItems: 'center' },
-                    { position: 'absolute', right: 0 },
-                    getCoverAnimatedStyle(),
-                    getCoverSpecialAnimatedStyle(),
-                ]}>
-                    <Image source={require('../assets/img/PDX3.png')} style={styles.IMG} resizeMode={'stretch'} />
-
-                </Animated.View>
-            </Animated.View>
 
 
 
@@ -290,7 +220,8 @@ const ScreenLeft = ({ isOpen, onPressToggleOpen }) => {
     )
 }
 
-export default ScreenLeft
+export default React.memo(ScreenLeft)
+// export default ScreenLeft
 
 
 const styles = StyleSheet.create({

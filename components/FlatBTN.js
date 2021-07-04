@@ -11,11 +11,11 @@ const SPEED = 100
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function FlatBTN({
+const FlatBTN = ({
     isActive,
     color,
     onPress,
-}) {
+}) => {
 
     const translate = useRef(new Animated.Value(0)).current
 
@@ -40,6 +40,7 @@ export default function FlatBTN({
         defaultAnimation()
     }
 
+    console.log('RENDER FLAT_BTN')
 
     return (
         <View>
@@ -110,7 +111,7 @@ export default function FlatBTN({
     )
 
 }
-
+export default React.memo(FlatBTN)
 const styles = StyleSheet.create({
     pressableHorizontal: {
         width: 30, height: 50,
