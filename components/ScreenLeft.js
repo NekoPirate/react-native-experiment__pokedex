@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, Animated, Text, View, Pressable, Image, ScrollView } from 'react-native';
 
 import Page from './Page'
 import DisplayBig from './DisplayBig'
 import DisplayGreen from './DisplayGreen'
 import Led from './Led'
-import FlatBTN from './FlatBTN'
-import RoundBTN from './RoundBTN'
 import CrossPad from './CrossPad'
-
+import CustomBTN from './CustomBTN';
 
 import { withAnchorPoint } from 'react-native-anchor-point'
 
@@ -34,7 +32,6 @@ const SPEED = 750
 
 const ScreenLeft = ({ animationValue }) => {
 
-    // const animationValue = useRef(new Animated.Value(0)).current
 
     const translateShadow = animationValue.interpolate({
         inputRange: [0, 0.2, 1],
@@ -61,11 +58,6 @@ const ScreenLeft = ({ animationValue }) => {
         <Page width={SCREEN_WIDTH}>
 
 
-
-
-
-
-
             {/* BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND:::: */}
 
             {/*  PDX0  */}
@@ -79,13 +71,6 @@ const ScreenLeft = ({ animationValue }) => {
             </View>
 
 
-
-
-
-
-
-
-
             {/* CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT:::: */}
             <View style={[
                 { width: SCREEN_WIDTH * .9, flex: 1, },
@@ -97,15 +82,49 @@ const ScreenLeft = ({ animationValue }) => {
                 <View style={{ height: GAP }} />
 
 
-                {/* DISPLAY BIG-------------------------------------------------- */}
+                {/*  DISPLAY  */}
                 <View style={[styles.CENTER, { width: '100%' }]}>
-                    <DisplayBig >
-                        <Image source={require('../assets/img/pika_big.png')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'contain'} />
+                    <DisplayBig>
+
+                        <Image source={require('../assets/img/pika_big.png')} style={{ width: '100%', height: '100%', position: 'absolute', backgroundColor: 'orange' }} resizeMode={'cover'} />
+                        {/* <Image source={require('../assets/img/noise.gif')} style={{ width: '100%', height: '100%', position: 'absolute' }} resizeMode={'contain'} /> */}
+
                     </DisplayBig>
                 </View>
 
 
-                <View style={{ height: GAP }} />
+
+
+                {/*  SPEAKER  */}
+                {/* 
+                <View style={[
+                    { width: 75, height: 50 },
+                    { position: 'absolute', top: -(50 - GAP / 2), right: GAP }
+                ]}>
+                    <Image source={require('../assets/img/SPEAKER2.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+
+                </View> */}
+                <View style={[
+                    { width: 50, height: 20 },
+                    { position: 'absolute', top: SCREEN_WIDTH * .805, right: GAP * 3.2 }
+                ]}>
+                    <Image source={require('../assets/img/SPEAKER3.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+
+                </View>
+
+
+                {/*  UNKNOW BUTTON  */}
+                {/* 
+                <View style={[
+                    { position: 'absolute', top: SCREEN_WIDTH * .78, left: GAP * 3.2 },
+                ]} >
+                    <CustomBTN width={30} height={30} borderRadius={40} color={COLOR_RED} isActive={true} onPress={() => setIsDisplayON(isDisplayON => isDisplayON)} />
+
+
+                </View>
+
+                <View style={{ height: GAP * .4 }} /> */}
+
 
 
                 <View style={[
@@ -115,18 +134,35 @@ const ScreenLeft = ({ animationValue }) => {
                     <View style={[
                         { width: '50%', flex: 1 },
                         { justifyContent: 'flex-start', alignItems: 'center' },
+                        // { backgroundColor: 'pink' }
                     ]}>
 
-                        {/* FLAT-BUTTONS */}
-                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around', paddingBottom: GAP }}>
-                            <FlatBTN color={COLOR_RED} isActive={true} onPress={() => alert('RED BUTTON')} />
-                            <FlatBTN color={COLOR_BLUE} isActive={true} onPress={() => alert('BLUE BUTTON')} />
-                        </View>
+
 
                         {/* GREEN-DISPLAY */}
-                        <DisplayGreen>
-                            <Image source={require('../assets/img/pika_small.png')} style={styles.IMG} resizeMode={'cover'} />
-                        </DisplayGreen>
+                        <View style={[
+                            { flex: 1, width: '100%', },
+                            { justifyContent: 'space-around', alignItems: 'center' },
+                            { paddingTop: 50 + GAP },
+                            // { position: 'absolute', left: 0 }
+                        ]}>
+
+                            <DisplayGreen>
+                                <Image source={require('../assets/img/pika_small.png')} style={styles.IMG} resizeMode={'cover'} />
+                            </DisplayGreen>
+                        </View>
+
+                        {/* FLAT-BUTTONS */}
+                        <View style={[
+                            { width: '120%' },
+                            { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' },
+                            { position: 'absolute', left: 0 }]}>
+
+                            <CustomBTN width={50} height={50} borderRadius={50} color={'#444'} isActive={true} onPress={() => null} />
+                            <CustomBTN width={50} height={20} borderRadius={10} color={COLOR_RED} isActive={true} onPress={() => alert('RED BUTTON')} />
+                            <CustomBTN width={50} height={20} borderRadius={10} color={COLOR_BLUE} isActive={true} onPress={() => alert('BLUE BUTTON')} />
+
+                        </View>
                     </View>
 
                     <View style={[styles.CENTER, { width: '50%', flex: 1 }]}>
@@ -216,13 +252,11 @@ const ScreenLeft = ({ animationValue }) => {
 
 
 
-        </Page>
+        </Page >
     )
 }
 
 export default React.memo(ScreenLeft)
-// export default ScreenLeft
-
 
 const styles = StyleSheet.create({
     FULSCREEN: {

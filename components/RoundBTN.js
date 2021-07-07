@@ -48,56 +48,59 @@ const RoundBTN = ({
     console.log('RENDER ROUND_BTN')
 
     return (
-        <View>
+        <View style={{ width: size, height: size }}>
 
             {/* SHADOW */}
-            <View style={[
-                { width: size, height: size, borderRadius: size, backgroundColor: COLOR_SHADOW },
-                { position: 'absolute', opacity: .5 },
-                {
-                    transform: [
-                        {
-                            translateY: BTN_HEIGHT
-                        },
-                        { scale: 1.2 }
-                    ]
-                }
-            ]} />
+            < View style={
+                [
+                    { width: size, height: size, borderRadius: size, backgroundColor: COLOR_SHADOW },
+                    { position: 'absolute', opacity: .5 },
+                    {
+                        transform: [
+                            {
+                                translateY: BTN_HEIGHT
+                            },
+                            { scale: 1.2 }
+                        ]
+                    }
+                ]} />
             {/* FAKE 3D */}
-            <View style={[
-                { width: size, height: size, borderRadius: size, backgroundColor: COLOR_OUTLINE },
-                { position: 'absolute' },
-
-                {
-                    transform: [
-                        {
-                            translateY: BTN_HEIGHT
-                        },
-                    ]
-                }
-            ]} />
-
-            {/* BTN */}
-            <AnimatedPressable
-                onPressIn={() => pressAnimation()}
-                onPressOut={() => handle_PRESS()}
-                style={[
-                    { width: size, height: size, borderRadius: size, backgroundColor: 'orange', marginBottom: GAP },
-                    { justifyContent: 'center', alignItems: 'center' },
-
-                    { borderColor: COLOR_OUTLINE, borderWidth: 4 },
+            < View style={
+                [
+                    { width: size, height: size, borderRadius: size, backgroundColor: COLOR_OUTLINE },
+                    { position: 'absolute' },
 
                     {
                         transform: [
                             {
-                                translateY: translate
-                            }
+                                translateY: BTN_HEIGHT
+                            },
                         ]
                     }
-                ]} >
+                ]} />
+
+            {/* BTN */}
+            < AnimatedPressable
+                onPressIn={() => pressAnimation()}
+                onPressOut={() => handle_PRESS()}
+                style={
+                    [
+                        { width: size, height: size, borderRadius: size, backgroundColor: 'orange', marginBottom: GAP },
+                        { justifyContent: 'center', alignItems: 'center' },
+
+                        { borderColor: COLOR_OUTLINE, borderWidth: 4 },
+
+                        {
+                            transform: [
+                                {
+                                    translateY: translate
+                                }
+                            ]
+                        }
+                    ]} >
                 {children}
-            </AnimatedPressable>
-        </View>
+            </AnimatedPressable >
+        </View >
     )
 
 }

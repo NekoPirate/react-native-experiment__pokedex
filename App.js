@@ -11,12 +11,12 @@ hMMd...dMMm...mMMs..omMMMMMNh:..-MMMydNMs.yMMd..sMMN+........+MMM...mMMmdMMMMd:.
 */
 
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useState, useRef } from 'react';
-import { Dimensions, Animated, View, Image, ScrollView } from 'react-native';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { Dimensions, Animated, View, Image, ScrollView, Pressable } from 'react-native';
 
 import ScreenLeft from './components/ScreenLeft'
 import ScreenRight from './components/ScreenRight'
-import RoundBTN from './components/RoundBTN'
+import CustomBTN from './components/CustomBTN'
 
 import { withAnchorPoint } from 'react-native-anchor-point'
 
@@ -33,23 +33,35 @@ const COLOR_OUTLINE = '#54353a'
 const SCREEN_WIDTH = Dimensions.get('screen').width
 const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
-const SPEED = 750
+// const SPEED_openClose = 5000
+const SPEED_openClose = 750
+const SPEED_press = 150
+
+
+
 
 export default function App() {
-  const [count, setCount] = useState(0)
+
   const [isOpen, setIsOpen] = useState(false)
 
-  const animationValue = useRef(new Animated.Value(0)).current
+  const scrollRef = useRef()
 
+  const openCloseAnimationValue = useRef(new Animated.Value(0)).current
+  const pressAnimationValue = useRef(new Animated.Value(0)).current
 
-  const openCover = animationValue.interpolate({
+  const openCover = openCloseAnimationValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', `180deg`]
   })
 
-  const fadeCover = animationValue.interpolate({
+  const fadeCover = openCloseAnimationValue.interpolate({
     inputRange: [0, 0.9, 1],
     outputRange: [1, 1, 0]
+  })
+
+  const translateBTN = pressAnimationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 5]
   })
 
   const getCoverAnimatedStyle = () => {
@@ -68,41 +80,63 @@ export default function App() {
 
 
   const openAnimation = () => {
-    Animated.timing(animationValue, {
-      toValue: 1,
-      duration: SPEED,
-      useNativeDriver: true,
-    }).start()
-    setIsOpen(isOpen => !isOpen)
+    // scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true })
+
+    Animated.sequence([
+
+      Animated.timing(pressAnimationValue, {
+        toValue: 1,
+        duration: SPEED_press,
+        useNativeDriver: true,
+      }),
+      Animated.timing(pressAnimationValue, {
+        toValue: 0,
+        duration: SPEED_press,
+        useNativeDriver: true,
+      }),
+      Animated.timing(openCloseAnimationValue, {
+        toValue: 1,
+        duration: SPEED_openClose,
+        useNativeDriver: true,
+      }),
+
+    ]).start()
+
+    // console.log('open')
   }
 
   const closeAnimation = () => {
-    Animated.timing(animationValue, {
+
+    Animated.timing(openCloseAnimationValue, {
       toValue: 0,
-      duration: SPEED,
+      duration: SPEED_openClose,
       useNativeDriver: true,
     }).start()
+
+    // console.log('close')
+  }
+
+  const handle_toggle_open = () => {
+
     setIsOpen(isOpen => !isOpen)
+    scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true })
+
   }
 
 
-  const handle_toggle_open = useCallback(() => {
+  useEffect(() => {
 
-    isOpen
-
+    !isOpen
       ? closeAnimation()
       : openAnimation()
 
-    // setIsOpen(isOpen => !isOpen)
-
-    // setCount(count + 1)
-    // console.log('count')
   }, [isOpen])
+
 
   return (
     <View style={[
       { flex: 1 },
-      { alignItems: 'center', justifyContent: 'flex-start' },
+      { alignItems: 'center', justifyContent: 'center' },
       { backgroundColor: COLOR_OUTLINE },
     ]}>
 
@@ -111,17 +145,28 @@ export default function App() {
         horizontal={true}
         pagingEnabled={true}
         scrollEnabled={isOpen ? true : false}
+        ref={scrollRef}
       >
-        <ScreenLeft animationValue={animationValue} />
+
+        <ScreenLeft animationValue={openCloseAnimationValue} />
 
         <ScreenRight />
+
+        {/* BTN OPEN------------------------------------------- */}
+        <View style={[{ justifyContent: 'center', alignContent: 'center' }, { position: 'absolute', top: SCREEN_HEIGHT * .7, right: GAP * 1.5 }]} >
+          <CustomBTN
+            width={50} height={50} borderRadius={40} color={'orange'} isActive={true}
+            onPress={() => handle_toggle_open()}
+          />
+        </View>
 
       </ScrollView>
 
 
+
       {/*  PDX3  */}
       <View
-        pointerEvents='none'
+        pointerEvents={isOpen ? 'none' : 'auto'}
         style={[
           { width: SCREEN_WIDTH, height: '100%' },
           { justifyContent: 'flex-start', alignItems: 'center' },
@@ -138,27 +183,29 @@ export default function App() {
           <Image source={require('./assets/img/PDX3_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
           <Image source={require('./assets/img/PDX3_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
           <Image source={require('./assets/img/PDX3_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
+          {/* BTN OPEN------------------------------------------- */}
+          <View
+            style={[
 
+              { position: 'absolute', left: GAP, top: SCREEN_WIDTH * .9 },
+            ]} >
+
+            <Pressable
+              onPress={() => handle_toggle_open()}
+              style={{ width: 50, height: 100 }}
+            >
+              <Image source={require('./assets/img/OPEN_B.png')} style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }} resizeMode={'stretch'} />
+              <Animated.Image source={require('./assets/img/OPEN_A.png')} style={{ width: '85%', height: '85%', position: 'absolute', top: '3%', left: '10%', transform: [{ translateY: translateBTN }] }} resizeMode={'stretch'} />
+
+            </Pressable>
+
+          </View>
         </Animated.View>
-      </View>
-
-      {/* BTN OPEN------------------------------------------- */}
-      <View style={[{ justifyContent: 'center', alignContent: 'center' }, { position: 'absolute', top: GAP - 5, right: GAP * 1.5 }]} >
-
-        <RoundBTN onPress={() => handle_toggle_open()} size={50} >
-          <View style={[
-            { width: 30, height: 30, position: 'absolute', top: 7 },
-            { borderRadius: 50, borderWidth: 4, borderColor: COLOR_OUTLINE }
-          ]} />
-          <View style={[
-            { width: 12, height: 20, position: 'absolute', top: 4 },
-            { borderLeftWidth: 4, borderRightWidth: 4, borderRadius: 20, borderColor: 'orange', backgroundColor: COLOR_OUTLINE }
-          ]} />
-        </RoundBTN>
 
       </View>
 
       <StatusBar style="auto" hidden={true} />
     </View >
+
   );
 }

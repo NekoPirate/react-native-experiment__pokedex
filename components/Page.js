@@ -8,7 +8,7 @@ const Page = ({ children, width }) => {
     return (
         <View style={[
             { width: width, flex: 1, },
-            { alignItems: 'flex-start', justifyContent: 'flex-start' },
+            { alignItems: 'flex-start', justifyContent: 'center' },
         ]}>
             {children}
 

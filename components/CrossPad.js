@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Animated, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Animated, View, Pressable, Image, Text } from 'react-native';
 
 const COLOR_SHADOW = '#543539Df'
+const HIGHLIGHT = '#ffffff44'
 const COLOR_OUTLINE = '#54353a'
+
 const BTN_HEIGHT = 3
 const ANGLE = 3
 const PERSPECTIVE = 90
@@ -138,7 +140,6 @@ const CrossPad = ({
         <View style={[
             { width: 120, height: 120 },
             { justifyContent: 'center', alignItems: 'center' },
-            // { backgroundColor: '#fff' }
         ]}>
             {/* SHADOW */}
             <Animated.View style={[
@@ -157,7 +158,7 @@ const CrossPad = ({
                             translateY: BTN_HEIGHT
                         },
                         {
-                            scale: 1.1
+                            scale: 1.08
                         }
                     ]
                 }
@@ -169,15 +170,9 @@ const CrossPad = ({
                 { opacity: .5 },
                 {
                     transform: [
-                        {
-                            perspective: PERSPECTIVE
-                        },
-                        {
-                            translateY: BTN_HEIGHT
-                        },
-                        {
-                            scale: 1.1
-                        }
+                        { perspective: PERSPECTIVE },
+                        { translateY: BTN_HEIGHT },
+                        { scale: 1.1 }
                     ]
                 }
             ]} />
@@ -189,12 +184,8 @@ const CrossPad = ({
                 { backgroundColor: COLOR_OUTLINE, borderRadius: 10 },
                 {
                     transform: [
-                        {
-                            perspective: PERSPECTIVE
-                        },
-                        {
-                            translateY: BTN_HEIGHT
-                        }
+                        { perspective: PERSPECTIVE },
+                        { translateY: BTN_HEIGHT }
                     ]
                 }
             ]} />
@@ -204,21 +195,30 @@ const CrossPad = ({
                 { backgroundColor: COLOR_OUTLINE, borderRadius: 10 },
                 {
                     transform: [
-                        {
-                            perspective: PERSPECTIVE
-                        },
-                        {
-                            translateY: BTN_HEIGHT
-                        }
+                        { perspective: PERSPECTIVE },
+                        { translateY: BTN_HEIGHT }
                     ]
                 }
             ]} />
 
-            {/*LEFT <---> RIGHT */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/*CROSSPAD IMG */}
             <Animated.View style={[
-                { width: 120, height: 50, position: 'absolute' },
-                { backgroundColor: 'orange', borderRadius: 10, borderColor: COLOR_OUTLINE, borderWidth: 4 },
-                { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+                { width: 120, height: 120, position: 'absolute' },
+                { justifyContent: 'center', alignItems: 'center' },
+                // { backgroundColor: 'pink' },
                 {
                     transform: [
                         {
@@ -239,93 +239,34 @@ const CrossPad = ({
                     ]
                 }
             ]}>
+                {/* IMAGE */}
+                <Image
+                    source={require('../assets/img/CROSSPAD.png')}
+                    style={[styles.img, { position: 'absolute', }]}
+                    resizeMode={'stretch'} />
+
+
+
                 <Pressable
                     onPressIn={() => leftAnimation()}
                     onPressOut={() => handle_LEFT()}
-                    style={styles.pressableHorizontal} >
-                    <Image
-                        source={require('../assets/img/triangle.png')}
-                        style={[styles.img, { transform: [{ rotate: '-90deg' }] }]}
-                        resizeMode={'center'} />
-                </Pressable>
+                    style={[styles.pressableHorizontal, { position: 'absolute', left: 0 }]} />
 
                 <Pressable
                     onPressIn={() => rightAnimation()}
                     onPressOut={() => handle_RIGHT()}
-                    style={styles.pressableHorizontal} >
-                    <Image
-                        source={require('../assets/img/triangle.png')}
-                        style={[styles.img, { transform: [{ rotate: '90deg' }], paddingRight: 6 }]}
-                        resizeMode={'center'} />
-                </Pressable>
-            </Animated.View>
+                    style={[styles.pressableHorizontal, { position: 'absolute', right: 0 }]} />
 
-            {/*TOP <---> BOTTOM */}
-            <Animated.View style={[
-                { width: 50, height: 120, position: 'absolute' },
-                { justifyContent: 'space-between', alignItems: 'center' },
-                { backgroundColor: 'orange', borderRadius: 10, borderColor: COLOR_OUTLINE, borderWidth: 4 },
-                {
-                    transform: [
-                        {
-                            rotateY: rotateY
-                        },
-                        {
-                            rotateX: rotateX
-                        },
-                        {
-                            perspective: PERSPECTIVE
-                        },
-                        {
-                            translateX: translate_X
-                        },
-                        {
-                            translateY: translate_Y
-                        }
-                    ]
-                }
-            ]}>
                 <Pressable
                     onPressIn={() => topAnimation()}
                     onPressOut={() => handle_TOP()}
-                    style={styles.pressableVertical} >
-                    <Image
-                        source={require('../assets/img/triangle.png')}
-                        style={[styles.img, { transform: [{ rotate: '0deg' }] }]}
-                        resizeMode={'center'} />
-                </Pressable>
+                    style={[styles.pressableVertical, { position: 'absolute', top: 0 }]} />
 
                 <Pressable
                     onPressIn={() => bottomAnimation()}
-                    onPressOut={() => handle_BOTTOM()} style={styles.pressableVertical} >
-                    <Image
-                        source={require('../assets/img/triangle.png')}
-                        style={[styles.img, { transform: [{ rotate: '180deg' }] }]}
-                        resizeMode={'center'} />
-                </Pressable>
-                <View style={[
-                    { width: '100%', height: '100%' },
-                    { justifyContent: 'center', alignItems: 'center' },
-                    { position: 'absolute' },
-                ]} >
-
-                    <View style={[
-                        { width: 65, height: 65 },
-                        { justifyContent: 'center', alignItems: 'center' },
-                        { backgroundColor: 'orange', borderRadius: 40 },
-                    ]}>
-                        <View pointerEvents='none' style={[
-                            { width: 35, height: 35 },
-                            { borderRadius: 30, borderWidth: 3, borderColor: '#54353922' },
-                            { backgroundColor: '#54353955' }
-                        ]} />
-                    </View>
-
-                </View>
-
+                    onPressOut={() => handle_BOTTOM()}
+                    style={[styles.pressableVertical, { position: 'absolute', bottom: 0 }]} />
             </Animated.View>
-
-
 
 
         </View >
@@ -339,17 +280,18 @@ const styles = StyleSheet.create({
     pressableHorizontal: {
         width: 30, height: 50,
         justifyContent: 'center', alignItems: 'center',
-        // backgroundColor: '#ff0'
+        // backgroundColor: '#ff0',
+
 
     },
     pressableVertical: {
         width: 50, height: 30,
         justifyContent: 'center', alignItems: 'center',
-        // backgroundColor: '#ff0'
+        // backgroundColor: '#f90'
 
     },
     img: {
-        width: 20, height: 20,
+        width: '100%', height: '100%',
         // backgroundColor: '#f00'
     }
 });
@@ -363,5 +305,128 @@ const styles = StyleSheet.create({
         <Image source={require('./assets/img/circle_blue.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
 
       </View>
+
+
+
+
+
+       {/*LEFT <---> RIGHT
+       <Animated.View style={[
+        { width: 120, height: 50, position: 'absolute' },
+        { backgroundColor: color, borderRadius: 10, borderColor: COLOR_OUTLINE, borderWidth: 4 },
+        { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+        {
+            transform: [
+                {
+                    rotateY: rotateY
+                },
+                {
+                    rotateX: rotateX
+                },
+                {
+                    perspective: PERSPECTIVE
+                },
+                {
+                    translateX: translate_X
+                },
+                {
+                    translateY: translate_Y
+                }
+            ]
+        }
+    ]}>
+
+
+        <Pressable
+            onPressIn={() => leftAnimation()}
+            onPressOut={() => handle_LEFT()}
+            style={styles.pressableHorizontal} >
+            <Image
+                source={require('../assets/img/triangle.png')}
+                style={[styles.img, { transform: [{ rotate: '-90deg' }] }]}
+                resizeMode={'center'} />
+        </Pressable>
+
+        <Pressable
+            onPressIn={() => rightAnimation()}
+            onPressOut={() => handle_RIGHT()}
+            style={styles.pressableHorizontal} >
+            <Image
+                source={require('../assets/img/triangle.png')}
+                style={[styles.img, { transform: [{ rotate: '90deg' }], paddingRight: 6 }]}
+                resizeMode={'center'} />
+        </Pressable>
+
+
+    </Animated.View>
+
+    {/*TOP <---> BOTTOM
+    <Animated.View style={[
+        { width: 50, height: 120, position: 'absolute' },
+        { justifyContent: 'space-between', alignItems: 'center' },
+        { backgroundColor: color, borderRadius: 10, borderColor: COLOR_OUTLINE, borderWidth: 4 },
+        {
+            transform: [
+                {
+                    rotateY: rotateY
+                },
+                {
+                    rotateX: rotateX
+                },
+                {
+                    perspective: PERSPECTIVE
+                },
+                {
+                    translateX: translate_X
+                },
+                {
+                    translateY: translate_Y
+                }
+            ]
+        }
+    ]}>
+
+        <Pressable
+            onPressIn={() => topAnimation()}
+            onPressOut={() => handle_TOP()}
+            style={styles.pressableVertical} >
+            <Image
+                source={require('../assets/img/triangle.png')}
+                style={[styles.img, { transform: [{ rotate: '0deg' }] }]}
+                resizeMode={'center'} />
+        </Pressable>
+
+        <Pressable
+            onPressIn={() => bottomAnimation()}
+            onPressOut={() => handle_BOTTOM()} style={styles.pressableVertical} >
+            <Image
+                source={require('../assets/img/triangle.png')}
+                style={[styles.img, { transform: [{ rotate: '180deg' }] }]}
+                resizeMode={'center'} />
+        </Pressable>
+
+
+        <View pointerEvents='none' style={[
+            { width: '100%', height: '100%' },
+            { justifyContent: 'center', alignItems: 'center' },
+            { position: 'absolute' },
+        ]} >
+            <View style={[
+                { width: 65, height: 65 },
+                { justifyContent: 'center', alignItems: 'center' },
+                { backgroundColor: color, borderRadius: 40 },
+            ]}>
+                <View style={[
+                    { width: 35, height: 35 },
+                    { borderRadius: 30, borderWidth: 3, borderColor: '#54353922' },
+                    { backgroundColor: '#54353955' }
+                ]} />
+            </View>
+
+        </View>
+    </Animated.View>
+
+
+
 
 */
