@@ -180,6 +180,15 @@ const DisplayBig = ({ children }) => {
                 />
             </View>
 
+            {/*  SPEAKER  */}
+            <View style={[
+                { width: 50, height: 20 },
+                { position: 'absolute', bottom: SCREEN_WIDTH * .085, right: GAP * 3.2 }
+            ]}>
+                <Image source={require('../assets/img/SPEAKER3.png')} style={{ width: '100%', height: '100%' }} resizeMode={'stretch'} />
+            </View>
+
+
         </View >
     )
 }

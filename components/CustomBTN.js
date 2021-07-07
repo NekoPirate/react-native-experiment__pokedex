@@ -13,10 +13,11 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const CustomBTN = ({
     children,
-    width,
-    height,
-    borderRadius,
+    width = 10,
+    height = 10,
+    borderRadius = 0,
     color,
+    shadow = true,
     isActive,
     onPress,
 }) => {
@@ -63,6 +64,8 @@ const CustomBTN = ({
         <View style={{ width: width, height: height, transform: [{ rotateX: '-10deg' }] }} >
 
             {/* SHADOW */}
+
+
             < View style={
                 [
                     { width: width, height: height, borderRadius: borderRadius, backgroundColor: COLOR_SHADOW },
@@ -70,7 +73,9 @@ const CustomBTN = ({
                     {
                         transform: [
                             { translateY: HIGHNESS },
-                            { scale: 1.2 }
+                            { scaleX: shadow ? 1.1 : 0 },
+                            { scaleY: shadow ? 1.2 : 0 }
+
                         ]
                     }
                 ]} />

@@ -153,7 +153,9 @@ export default function App() {
         <ScreenRight />
 
         {/* BTN OPEN------------------------------------------- */}
-        <View style={[{ justifyContent: 'center', alignContent: 'center' }, { position: 'absolute', top: SCREEN_HEIGHT * .7, right: GAP * 1.5 }]} >
+        <View style={[
+          { justifyContent: 'center', alignContent: 'center' },
+          { position: 'absolute', top: SCREEN_HEIGHT * .67, right: GAP * 1.5 }]} >
           <CustomBTN
             width={50} height={50} borderRadius={40} color={'orange'} isActive={true}
             onPress={() => handle_toggle_open()}

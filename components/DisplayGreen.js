@@ -24,33 +24,23 @@ const DisplayGreen = ({ children }) => {
 
     return (
         <View style={{ width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
             <View style={[
-                { width: '70%', flex: 1, position: 'absolute' },
+                { width: '100%', height: '100%', position: 'absolute' },
                 { backgroundColor: COLOR_SHADOW },
                 { borderRadius: 10 },
-                // { opacity: .5 },
-
-
-                {
-                    transform: [
-                        {
-                            scale: 2
-                        }
-                    ]
-                }
-
+                { opacity: .5 },
+                { transform: [{ scaleX: 1.03 }, { scaleY: 1.04 }, { translateY: 3 }] }
             ]} />
+
             <View style={[
-                { width: '85%', flex: 1 },
+                { width: '100%', flex: 1 },
                 { backgroundColor: '#4fa95f', overflow: 'hidden' },
                 { borderRadius: 10, },
                 { borderLeftWidth: 6, borderTopWidth: 6 },
                 { borderRightWidth: 3, borderBottomWidth: 3 },
 
                 { borderColor: COLOR_OUTLINE }
-
-                // { borderRadius: 20, borderColor: '#54353a', borderWidth: 4 },
-
             ]} >
 
                 {children}
