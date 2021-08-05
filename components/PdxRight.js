@@ -1,15 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { Dimensions, Animated, StyleSheet, Text, View, Pressable, Image, ScrollView } from 'react-native';
+import React from 'react';
+import { Dimensions, View, Image } from 'react-native';
 
 import Page from './Page'
-import DisplayBig from './DisplayBig'
-import DisplayGreen from './DisplayGreen'
+import Background from './Background'
+
+import LCD from './LCD'
 import CustomBTN from './CustomBTN';
 
-import Led from './Led'
-import FlatBTN from './FlatBTN'
-import RoundBTN from './RoundBTN'
-import CrossPad from './CrossPad'
+const PDX2_A = require('../assets/img/PDX2_A.png')
+const PDX2_B = require('../assets/img/PDX2_B.png')
+const PDX2_C = require('../assets/img/PDX2_C.png')
 
 const COLOR_RED = '#c2133a'
 const COLOR_RED_LIGHT = '#f6a9b2'
@@ -27,47 +27,33 @@ const SCREEN_HEIGHT = Dimensions.get('screen').height
 const GAP = SCREEN_WIDTH * .05
 
 
-const ScreenRight = () => {
+const PdxRight = ({
+
+    LCD_B,
+    LCD_C,
+    LCD_D,
+
+    WhiteBTN_A,
+    WhiteBTN_B,
+
+    onPressOpen }) => {
 
     console.log('RENDER RIGHT')
+    // console.log(DATA)
     return (
 
-        <Page width={SCREEN_WIDTH} >
+        <Page >
 
-            {/* BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND::::BACKGROUND:::: */}
-            {/*  PDX2  */}
-            <View
-                pointerEvents='none'
-                style={[
-                    { width: SCREEN_WIDTH, height: '100%', position: 'absolute', top: 0, botto: 0, left: 0, right: 0 },
-                    { justifyContent: 'space-between', alignItems: 'center' },
-                ]}>
-
-                {/* <Image source={require('../assets/img/PDX2_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
-                <Image source={require('../assets/img/PDX2_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
-                <Image source={require('../assets/img/PDX2_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} /> */}
-                <Image source={require('../assets/img/PDX2.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
-
-            </View>
-
-            <View
-                pointerEvents='none'
-                style={[
-                    { width: GAP * 2, height: '100%', position: 'absolute', top: 0, botto: 0, left: -GAP },
-                    { justifyContent: 'space-between', alignItems: 'center' },
-                ]}>
-
-                {/* <Image source={require('../assets/img/PDX2_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
-                <Image source={require('../assets/img/PDX2_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
-                <Image source={require('../assets/img/PDX2_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} /> */}
-                <Image source={require('../assets/img/PDX_BAR.png')} style={{ flex: 1, width: GAP * 2 }} resizeMode={'stretch'} />
-
-            </View>
+            <Background
+                imgA={PDX2_A}
+                imgB={PDX2_B}
+                imgC={PDX2_C}
+            />
 
             {/* CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT::::CONTENT:::: */}
             <View style={[
                 { width: SCREEN_WIDTH * .9, flex: 1, },
-                { marginTop: SCREEN_WIDTH * .42, marginBottom: GAP * 1.3, marginLeft: GAP / 2 },
+                { marginTop: SCREEN_WIDTH * .4, marginBottom: GAP * 1.3, marginLeft: GAP * 1.2 },
                 { justifyContent: 'flex-start', alignItems: 'center' },
                 // { backgroundColor: '#19f' },
                 { paddingHorizontal: GAP }
@@ -82,7 +68,14 @@ const ScreenRight = () => {
                     { width: '100%', height: SCREEN_WIDTH * .3 },
                     { borderRadius: 5 },
                 ]}>
-                    <DisplayGreen></DisplayGreen>
+                    {
+                        /*-    `sdhd+ ddhdd/                                        
+                        hd-    hd- +hodd. sd+                                       
+                        dm-    hm- ```dm. sd+                                       
+                        dm:...`ym/.sdodm-.yd/                                       
+                        syyyyy/`+yyy: yysy*/
+                        LCD_B
+                    }
                 </View>
 
                 {/*::::::::::::::::::::::::::::: */}
@@ -111,44 +104,34 @@ const ScreenRight = () => {
                         { flexDirection: 'row' }
                     ]} >
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                     </View>
                     <View style={[
@@ -159,44 +142,34 @@ const ScreenRight = () => {
                     ]} >
 
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                         <CustomBTN
-                            shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
                             borderRadius={5}
                             color={COLOR_BLUE}
-                            isActive={true}
                             onPress={() => alert('BLUE BUTTON')} />
                     </View>
                 </View>
@@ -253,7 +226,23 @@ const ScreenRight = () => {
                             { backgroundColor: COLOR_SHADOW, opacity: .5 },
                             { transform: [{ scaleX: 1.07 }, { scaleY: 1.1 }, { translateY: 7 }] }
                         ]} />
-                        <CustomBTN
+                        {
+                            /*hhh/ hhhhhh+hh/ oh+                                       
+                            dm-`odo``hm/``dmdyhdo                                       
+                            hdhddh   yd:  hd-sdh+                                       
+                            dm-`odo  ym:  dm. sdo                                       
+                            yhhhh/   sh:  hh. o*/
+                            WhiteBTN_A
+                        }
+                        {
+                            /*hhh/ hhhhhh+hh/ oh+                                       
+                            dm-`odo``hm/``dmdyhdo                                       
+                            hdhddh   yd:  hd-sdh+                                       
+                            dm-`odo  ym:  dm. sdo                                       
+                            yhhhh/   sh:  hh. o*/
+                            WhiteBTN_B
+                        }
+                        {/* <CustomBTN
                             shadow={false}
                             width={(SCREEN_WIDTH - GAP * 2) * .177}
                             height={(SCREEN_WIDTH - GAP * 2) * .177}
@@ -269,128 +258,63 @@ const ScreenRight = () => {
                             borderRadius={5}
                             color={'#ccc'}
                             isActive={true}
-                            onPress={() => alert('WHITE BUTTON')} />
+                            onPress={() => alert('WHITE BUTTON')} /> */}
+                    </View>
+                    {/* BTN OPEN------------------------------------------- */}
+                    <View style={[
+                        { justifyContent: 'center', alignContent: 'center' },
+                        { position: 'absolute', bottom: -GAP, right: 0 }
+                    ]}
+                    >
+                        <CustomBTN
+                            width={50} height={50} borderRadius={40} color={'#fe9f00ff'}
+                            onPress={onPressOpen}
+                        />
                     </View>
                 </View>
+
 
                 {/*::::::::::::::::::::::::::::: */}
                 <View style={{ height: GAP * 2 }} />
                 {/*::::::::::::::::::::::::::::: */}
 
-                {/*  SCREEN_A HERE ----->  */}
+                {/*  SCREEN_B & SCREEN_C HERE ----->  */}
                 <View style={[
                     { width: '100%', flex: 1 },
                     { borderRadius: 5 },
                     { flexDirection: 'row' }
                 ]}>
-                    <DisplayGreen></DisplayGreen>
+                    {/* <LCD animatedValue={toggleLcdAnimationValue}></LCD> */}
+                    {
+                        /*-    `sdhd+ ddhdd/                                        
+                        hd-    hd- +hodd. sd+                                       
+                        dm-    hm- ```dm. sd+                                       
+                        dm:...`ym/.sdodm-.yd/                                       
+                        syyyyy/`+yyy: yysy*/
+                        LCD_C
+                    }
                     {/*::::::::::::::::::::::::::::: */}
                     <View style={{ width: GAP * 2 }} />
                     {/*::::::::::::::::::::::::::::: */}
-                    <DisplayGreen></DisplayGreen>
+                    {/* <LCD animatedValue={toggleLcdAnimationValue}></LCD> */}
+                    {
+                        /*-    `sdhd+ ddhdd/                                        
+                        hd-    hd- +hodd. sd+                                       
+                        dm-    hm- ```dm. sd+                                       
+                        dm:...`ym/.sdodm-.yd/                                       
+                        syyyyy/`+yyy: yysy*/
+                        LCD_D
+                    }
                 </View>
                 {/*::::::::::::::::::::::::::::: */}
                 <View style={{ height: GAP * .5 }} />
                 {/*::::::::::::::::::::::::::::: */}
-                {/* <View style={[
-                    { height: '100%', flex: .2 },
-                ]} />
-                <View style={[
-                    { height: '100%', flex: .4 },
-                    // { backgroundColor: '#222' },
-                    { borderRadius: 5 },
-                ]} >
-                    <View style={[
-                        { width: '100%', flex: .1 },
-                        // { backgroundColor: '#222' },
-                        { borderRadius: 5 },
-                    ]} />
-                    <View style={[
-                        { width: '100%', flex: .1 },
-                        // { backgroundColor: '#222' },
-                        { borderRadius: 5 },
-                        { flexDirection: 'row' }
-                    ]} >
-                        <View style={[
-                            { width: '100%', flex: .45 },
-                            { backgroundColor: COLOR_OUTLINE },
-                            { borderRadius: 5 },
-                        ]} />
-                        <View style={[
-                            { width: '100%', flex: .1 },
-                            // { backgroundColor: '#222' },
-                        ]} />
-                        <View style={[
-                            { width: '100%', flex: .45 },
-                            { backgroundColor: COLOR_OUTLINE },
-                            { borderRadius: 5 },
-                        ]} />
-                    </View>
-                    <View style={[
-                        { width: '100%', flex: .3 },
-                        // { backgroundColor: '#222' },
-                    ]} />
-                    <View style={[
-                        { width: '100%', flex: .5 },
-                        // { backgroundColor: '#222' },
-                        { flexDirection: 'row' }
-                    ]} >
-                        <View style={[
-                            { height: '100%', flex: .4 },
-                            // { backgroundColor: '#222' },
-                        ]} />
-                        <View style={[
-                            { height: '100%', flex: .3 },
-                            // { backgroundColor: '#222' },
-                        ]} />
-                        <View style={[
-                            { height: '100%', flex: .3 },
-                            // { backgroundColor: '#222' },
-                        ]} >
-                            <View style={[
-                                { height: 50, width: 50, position: 'absolute', right: 0, bottom: -20 },
-                                { backgroundColor: 'orange' },
-                                { borderRadius: 100, borderWidth: 4, borderColor: COLOR_OUTLINE },
-                            ]} />
-                        </View>
-                    </View>
-                </View>
-            </View> */}
-
-                {/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
-
-                {/* <View style={[
-                { width: '100%', flex: .1 },
-                // { backgroundColor: '#fff' },
-            ]} /> */}
-
-                {/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
-
-                {/*  SCREENS_B_&_C HERE ----->  */}
-                {/* <View style={[
-                { height: '100%', flex: .1 },
-                { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-                // { backgroundColor: '#222' },
-            ]} >
-                <View style={[
-                    { height: '100%', flex: .45 },
-                    { backgroundColor: '#222' },
-                    { borderRadius: 5 },
-                ]} />
-                <View style={[
-                    { height: '100%', flex: .1 },
-                ]} />
-                <View style={[
-                    { height: '100%', flex: .45 },
-                    { backgroundColor: '#222' },
-                    { borderRadius: 5 },
-                ]} />
-            </View> */}
 
                 {/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
             </View>
+
         </Page >
     )
 }
 
-export default React.memo(ScreenRight)
+export default React.memo(PdxRight)

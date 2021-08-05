@@ -9,205 +9,99 @@ hMMd...dMMm...mMMs..omMMMMMNh:..-MMMydNMs.yMMd..sMMN+........+MMM...mMMmdMMMMd:.
 ...----....---........-://:......---.......---....---.........---...---.....--..........dMMh.::-......---.........://:....../o/::/yMMN-...---.........-::::.....-::::-......-:::-...
 ........................................................................................hNNy................................+mNMMMNds-..............................................
 */
-
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { Dimensions, Animated, View, Image, ScrollView, Pressable } from 'react-native';
-
-import ScreenLeft from './components/ScreenLeft'
-import ScreenRight from './components/ScreenRight'
-import CustomBTN from './components/CustomBTN'
-
-import { withAnchorPoint } from 'react-native-anchor-point'
-
-const COLOR_RED = '#c2133a'
-const COLOR_RED_LIGHT = '#f6a9b2'
-const COLOR_GOLD = '#f5c912'
-const COLOR_GOLD_LIGHT = '#fcf0be'
-const COLOR_GREEN = '#4fa95f'
-const COLOR_GREEN_LIGHT = '#c1e2c7'
-const COLOR_BLUE = '#11709e'
-const COLOR_BLUE_LIGHT = '#d2d2d2'
-const COLOR_SHADOW = '#543539Df'
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, ActivityIndicator } from 'react-native';
+//-------------------------------------------------
+import AppLoading from 'expo-app-loading'
+import * as Font from 'expo-font'
+//-------------------------------------------------
+import Pokedex from './components/Pokedex'
+//-------------------------------------------------
 const COLOR_OUTLINE = '#54353a'
-const SCREEN_WIDTH = Dimensions.get('screen').width
-const SCREEN_HEIGHT = Dimensions.get('screen').height
-const GAP = SCREEN_WIDTH * .05
-// const SPEED_openClose = 5000
-const SPEED_openClose = 750
-const SPEED_press = 150
-
-
-
-
-export default function App() {
-
-  const [isOpen, setIsOpen] = useState(false)
-
-  const scrollRef = useRef()
-
-  const openCloseAnimationValue = useRef(new Animated.Value(0)).current
-  const pressAnimationValue = useRef(new Animated.Value(0)).current
-
-  const openCover = openCloseAnimationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', `180deg`]
+//-------------------------------------------------
+const getFonts = () => { // fonts
+  Font.loadAsync({
+    'lcd': require('./assets/fonts/Renegade-Mistress.ttf'),
+    'lcdB': require('./assets/fonts/lcd-rounded.ttf'),
+    'lcdC': require('./assets/fonts/lcd-small.ttf'),
   })
 
-  const fadeCover = openCloseAnimationValue.interpolate({
-    inputRange: [0, 0.9, 1],
-    outputRange: [1, 1, 0]
-  })
+}
+//-------------------------------------------------
+const fetchPokemon = async (pokemonID) => {
 
-  const translateBTN = pressAnimationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 5]
-  })
+  const responceDetails = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonID}/`)
+  const pokemonDetails = await responceDetails.json()
 
-  const getCoverAnimatedStyle = () => {
-    let transform = {
-      opacity: fadeCover,
+  const id = pokemonDetails.id
+  const color = pokemonDetails.color.name
+
+  const name = pokemonDetails.name
+  const description = pokemonDetails.flavor_text_entries[1].flavor_text.toLowerCase()
+  const artwork = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonID}.png`
+  const sprite_front = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
+  const sprite_back = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemonID}.png`
+
+  return { color, id, name, description, artwork, sprite_front, sprite_back }
+}
+//-------------------------------------------------
+
+
+const App = () => {
+
+  const [fontsLoaded, setFontsLoaded] = useState(false)
+  const [pokemonList, setPokemonList] = useState(null)
+
+  //  FETCH POKEMON
+  //::::::::::::::::::::::::::::::
+  const updatePokemon = useCallback(async () => {
+
+    let array = []
+    for (let i = 1; i <= 151; i++) {
+      const newPokemon = await fetchPokemon(i)
+      array = [...array, newPokemon]
+      console.log(newPokemon.name)
     }
-    return transform;
-  }
-
-  const getCoverSpecialAnimatedStyle = () => {
-    let transform = {
-      transform: [{ rotateY: openCover }, { perspective: 15000 }]
-    }
-    return withAnchorPoint(transform, { x: 1, y: 1 }, { width: SCREEN_WIDTH, height: SCREEN_HEIGHT });
-  }
+    setPokemonList(array)
+    console.log('::::::::::::::::::::DATA-FETCH')
 
 
-  const openAnimation = () => {
-    // scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true })
-
-    Animated.sequence([
-
-      Animated.timing(pressAnimationValue, {
-        toValue: 1,
-        duration: SPEED_press,
-        useNativeDriver: true,
-      }),
-      Animated.timing(pressAnimationValue, {
-        toValue: 0,
-        duration: SPEED_press,
-        useNativeDriver: true,
-      }),
-      Animated.timing(openCloseAnimationValue, {
-        toValue: 1,
-        duration: SPEED_openClose,
-        useNativeDriver: true,
-      }),
-
-    ]).start()
-
-    // console.log('open')
-  }
-
-  const closeAnimation = () => {
-
-    Animated.timing(openCloseAnimationValue, {
-      toValue: 0,
-      duration: SPEED_openClose,
-      useNativeDriver: true,
-    }).start()
-
-    // console.log('close')
-  }
-
-  const handle_toggle_open = () => {
-
-    setIsOpen(isOpen => !isOpen)
-    scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true })
-
-  }
-
-
+  }, [])
+  //::::::::::::::::::::::::::::::
   useEffect(() => {
 
-    !isOpen
-      ? closeAnimation()
-      : openAnimation()
-
-  }, [isOpen])
-
-
-  return (
-    <View style={[
-      { flex: 1 },
-      { alignItems: 'center', justifyContent: 'center' },
-      { backgroundColor: COLOR_OUTLINE },
-    ]}>
-
-
-      <ScrollView
-        horizontal={true}
-        pagingEnabled={true}
-        scrollEnabled={isOpen ? true : false}
-        ref={scrollRef}
-      >
-
-        <ScreenLeft animationValue={openCloseAnimationValue} />
-
-        <ScreenRight />
-
-        {/* BTN OPEN------------------------------------------- */}
-        <View style={[
-          { justifyContent: 'center', alignContent: 'center' },
-          { position: 'absolute', top: SCREEN_HEIGHT * .67, right: GAP * 1.5 }]} >
-          <CustomBTN
-            width={50} height={50} borderRadius={40} color={'orange'} isActive={true}
-            onPress={() => handle_toggle_open()}
-          />
-        </View>
-
-      </ScrollView>
+    updatePokemon()
+  }, [])
+  //::::::::::::::::::::::::::::::
+  if (fontsLoaded) {
 
 
 
-      {/*  PDX3  */}
-      <View
-        pointerEvents={isOpen ? 'none' : 'auto'}
-        style={[
-          { width: SCREEN_WIDTH, height: '100%' },
-          { justifyContent: 'flex-start', alignItems: 'center' },
-          { position: 'absolute' },
+    console.log('::::RENDER APP')
+    return (
+      <View style={[
+        { flex: 1 },
+        { alignItems: 'center', justifyContent: 'center' },
+        { backgroundColor: COLOR_OUTLINE },
+      ]}>
 
-        ]}>
-        <Animated.View style={[
-          { width: SCREEN_WIDTH, height: '100%' },
-          { justifyContent: 'space-between', alignItems: 'center' },
-          { position: 'absolute', right: 0 },
-          getCoverAnimatedStyle(),
-          getCoverSpecialAnimatedStyle(),
-        ]}>
-          <Image source={require('./assets/img/PDX3_A.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
-          <Image source={require('./assets/img/PDX3_B.png')} style={{ flex: 1, width: SCREEN_WIDTH, }} resizeMode={'stretch'} />
-          <Image source={require('./assets/img/PDX3_C.png')} style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH * .5 }} resizeMode={'stretch'} />
-          {/* BTN OPEN------------------------------------------- */}
-          <View
-            style={[
+        <Pokedex DATA={pokemonList} />
 
-              { position: 'absolute', left: GAP, top: SCREEN_WIDTH * .9 },
-            ]} >
+        <StatusBar style="auto" hidden={true} />
+      </View >
+    )
+  }
+  else {
 
-            <Pressable
-              onPress={() => handle_toggle_open()}
-              style={{ width: 50, height: 100 }}
-            >
-              <Image source={require('./assets/img/OPEN_B.png')} style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }} resizeMode={'stretch'} />
-              <Animated.Image source={require('./assets/img/OPEN_A.png')} style={{ width: '85%', height: '85%', position: 'absolute', top: '3%', left: '10%', transform: [{ translateY: translateBTN }] }} resizeMode={'stretch'} />
+    return (
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={() => setFontsLoaded(true)}
+        onError={() => console.error('error')} />
+    )
+  }
 
-            </Pressable>
-
-          </View>
-        </Animated.View>
-
-      </View>
-
-      <StatusBar style="auto" hidden={true} />
-    </View >
-
-  );
 }
+
+export default App
